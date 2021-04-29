@@ -4,9 +4,9 @@
 class Turn
 {
 public:
-	char* turn;
-	friend bool operator == (Turn&, char*);
-	friend bool operator != (Turn&, char*);
+  char* turn;
+  friend bool operator == (Turn&, char*);
+  friend bool operator != (Turn&, char*);
 };
 
 #endif

@@ -18,8 +18,7 @@ void Board::load(sf::Color colour1, sf::Color colour2)
 
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (int i = 0; i < 64; i++)
-		target.draw(m_boardSquares[i]);
-	return;
+  for (int i = 0; i < 64; i++) target.draw(m_boardSquares[i]);
+  return;
 }
 

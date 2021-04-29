@@ -7,6 +7,6 @@ bool operator == (Turn& turn, char* colour)
 
 bool operator != (Turn& turn, char* colour)
 {
-	return !operator == (turn, colour);
+  return !operator == (turn, colour);
 }
 
