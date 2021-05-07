@@ -4,9 +4,12 @@
 class Turn
 {
 public:
-  char* turn;
+  const char* turn = turn_number % 2 == 1 ? "white" : "black";
+  int turn_number;
   friend bool operator == (Turn&, char*);
   friend bool operator != (Turn&, char*);
+  friend bool operator == (Turn&, int);
+  friend bool operator != (Turn&, int);
 };
 
 #endif
