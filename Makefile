@@ -1,6 +1,6 @@
 CXX        = g++
-LINKERLIBS = -lsfml-window -lsfml-system -lsfml-graphics
-CXXFLAGS   = -std=c++17 -g
+LINKERLIBS = -lsfml-window -lsfml-system -lsfml-graphics -lGLEW
+CXXFLAGS   = -std=c++17 -g 
 CPPFLAGS   = -I/usr/include/SFML/
 OUT        = chess
 OBJS       = src/turn.o src/main.o
