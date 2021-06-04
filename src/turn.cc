@@ -3,6 +3,7 @@
 bool operator == (Turn& turn, char* colour)
 {
   if (turn.turn == colour) return true;
+  return false;
 }
 
 bool operator != (Turn& turn, char* colour)
@@ -13,6 +14,7 @@ bool operator != (Turn& turn, char* colour)
 bool operator == (Turn& turn, int number)
 {
   if (turn.turn_number == number) return true;
+  return false;
 }
 
 bool operator != (Turn& turn, int number)
