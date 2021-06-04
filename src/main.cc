@@ -11,11 +11,12 @@ int main()
   
 #include "figures.hh"
 
-  pieces[0].setPosition(400,400);
+  pieces[0].setPosition(400, 400);
+  // TODO: set position for rest of pieces
 
   bool moving_piece = false;
   sf::Event event;
-  while(true)
+  while(window.isOpen())
     {
       while (window.pollEvent(event))
 	if (event.type == sf::Event::Closed)
