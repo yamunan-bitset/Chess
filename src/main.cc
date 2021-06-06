@@ -23,23 +23,43 @@ int main(int argc, char** argv)
  				        (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
     }
 
+  bool restart      = false;
   bool moving_piece = false;
   sf::Event event;
   while(window.isOpen())
     {
+      if (restart)
+	{
+#include "reinit_pieces.hh"
+	  for (int i = 0; i < pieces.size(); i++)
+	    {
+	      pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
+	      pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
+						 (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
+	    }
+	  restart  = false;
+	}
       while (window.pollEvent(event))
-	if (event.type == sf::Event::Closed)
-	  window.close();
+	{
+	  if (event.type == sf::Event::Closed)
+	    window.close();
+	  if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+	    restart = true;
+	}
       for (unsigned int i = 0; i < pieces.size(); i++)
 	pieces[i].move(moving_piece);
 
       window.clear();
 
       window.draw(bg);
-      for (unsigned int i = 0; i < pieces.size(); i++)
-	if (!pieces[i].delete_sprite)
-	  window.draw(pieces[i]);
       
+      if (!restart)
+	for (unsigned int i = 0; i < pieces.size(); i++)
+	  {
+	    if (!pieces[i].delete_sprite)
+	      window.draw(pieces[i]);
+	  }
+	        
       window.display();
     }
 }
