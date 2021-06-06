@@ -14,6 +14,8 @@ public:
 
   inline       sf::Sprite   getSprite () const { return this->sprite;              }
   inline const sf::Texture* getTexture() const { return this->sprite.getTexture(); }
+
+  bool delete_sprite = false;
   
 private:
   sf::RenderWindow& window;

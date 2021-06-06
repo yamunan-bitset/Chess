@@ -56,5 +56,14 @@ void ChessPiece::move(bool& moving_piece)
 	  this->moving = true;
 	  moving_piece = true;
 	}
+      else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) &&
+	       mouse_pos.x > this->getPosition().x &&
+	       mouse_pos.y > this->getPosition().y &&
+	       mouse_pos.x < this->getPosition().x + this->sprite.getGlobalBounds().width &&
+	       mouse_pos.y < this->getPosition().y + this->sprite.getGlobalBounds().height &&
+	       !moving_piece)
+	{
+	  this->delete_sprite = true;
+	}
     }
 }

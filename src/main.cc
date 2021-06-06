@@ -37,8 +37,9 @@ int main(int argc, char** argv)
 
       window.draw(bg);
       for (unsigned int i = 0; i < pieces.size(); i++)
-	window.draw(pieces[i]);
-
+	if (!pieces[i].delete_sprite)
+	  window.draw(pieces[i]);
+      
       window.display();
     }
 }
