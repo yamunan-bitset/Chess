@@ -20,9 +20,9 @@ std::array<std::string, 16> b_sprites =
 		b_pawn, b_pawn, b_pawn, b_pawn, b_pawn, b_pawn
 	};
 std::array<std::string, 16> w_sprites =
-	{ 	w_rook, w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, 
-		w_pawn, w_pawn, w_pawn, w_rook, w_knight, w_bishop, 
-		w_queen, w_king, w_bishop, w_knight
+	{ 	w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, 
+		w_pawn, w_pawn, w_rook, w_knight, w_bishop, 
+		w_queen, w_king, w_bishop, w_knight, w_rook
 	};
 
 std::vector<ChessPiece> pieces;
