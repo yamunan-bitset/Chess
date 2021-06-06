@@ -2,7 +2,7 @@
 
 ChessPiece::ChessPiece(sf::RenderWindow& windowRef, const std::string& file_name) : window(windowRef)
 {
-  if (!texture.loadFromFile(file_name)) exit(0);
+  if (!texture.loadFromFile(file_name)) exit(-1);
   this->sprite.setTexture(this->texture);
   this->moving = false;
   this->sprite.setScale(128 / this->sprite.getGlobalBounds().width,

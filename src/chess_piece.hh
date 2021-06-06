@@ -11,6 +11,9 @@ public:
   ChessPiece(const ChessPiece&);
   void draw(sf::RenderTarget&, sf::RenderStates) const;
   void move(bool&);
+
+  inline       sf::Sprite   getSprite () const { return this->sprite;              }
+  inline const sf::Texture* getTexture() const { return this->sprite.getTexture(); }
   
 private:
   sf::RenderWindow& window;
