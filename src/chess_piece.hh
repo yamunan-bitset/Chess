@@ -22,6 +22,7 @@ private:
   sf::Texture texture;
   sf::Sprite sprite;
   bool moving;
+  int size = 100;
 };
 
 #endif

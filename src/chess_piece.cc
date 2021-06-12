@@ -36,12 +36,17 @@ void ChessPiece::move(bool& moving_piece)
   sf::Vector2f mouse_pos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
   if (this->moving)
     {
-      this->setPosition(mouse_pos.x - this->sprite.getGlobalBounds().width/2,
-			mouse_pos.y - this->sprite.getGlobalBounds().height/2);
-      if(!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-	{
+      this->setPosition(mouse_pos.x - this->sprite.getGlobalBounds().width  / 2,
+			mouse_pos.y - this->sprite.getGlobalBounds().height / 2);
+      if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{ // Left Button Released
 	  this->moving = false;
 	  moving_piece = false;
+	  sf::Vector2f p = this->getPosition()
+	    + sf::Vector2f(this->size / 2, this->size / 2);
+	  sf::Vector2f new_pos = sf::Vector2f(this->size * int(p.x / this->size),
+					      this->size * int(p.y / this->size));
+	  this->setPosition(new_pos);
 	}
     }
   else
@@ -52,7 +57,7 @@ void ChessPiece::move(bool& moving_piece)
 	  mouse_pos.x < this->getPosition().x + this->sprite.getGlobalBounds().width &&
 	  mouse_pos.y < this->getPosition().y + this->sprite.getGlobalBounds().height &&
 	  !moving_piece)
-	{
+	{ // Left Button Pressed
 	  this->moving = true;
 	  moving_piece = true;
 	}
@@ -61,9 +66,6 @@ void ChessPiece::move(bool& moving_piece)
 	       mouse_pos.y > this->getPosition().y &&
 	       mouse_pos.x < this->getPosition().x + this->sprite.getGlobalBounds().width &&
 	       mouse_pos.y < this->getPosition().y + this->sprite.getGlobalBounds().height &&
-	       !moving_piece)
-	{
-	  this->delete_sprite = true;
-	}
+	       !moving_piece) this->delete_sprite = true; // Right Button Pressed, then delete figure
     }
 }
