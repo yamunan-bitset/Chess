@@ -5,6 +5,8 @@
 
 #include "chess_piece.hh"  
 
+extern void Position(ChessPiece&);
+
 int main(int argc, char** argv)
 {
   sf::RenderWindow window(sf::VideoMode(1000, 1000),"Chess");
@@ -23,6 +25,7 @@ int main(int argc, char** argv)
       pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
       pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
  				        (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
+      Position(pieces[i]);
     }
 
   bool restart      = false;
@@ -44,6 +47,7 @@ int main(int argc, char** argv)
 	      pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
 	      pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
 						 (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
+	      Position(pieces[i]);
 	    }
 	  restart  = false;
 	}

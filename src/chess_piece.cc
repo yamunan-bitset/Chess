@@ -1,5 +1,7 @@
 #include "chess_piece.hh"
 
+extern void Position(ChessPiece*);
+
 ChessPiece::ChessPiece(sf::RenderWindow& windowRef, const std::string& file_name) : window(windowRef)
 {
   if (!texture.loadFromFile(file_name)) exit(-1);
@@ -42,11 +44,7 @@ void ChessPiece::move(bool& moving_piece)
 	{ // Left Button Released
 	  this->moving = false;
 	  moving_piece = false;
-	  sf::Vector2f p = this->getPosition()
-	    + sf::Vector2f(this->size_x / 2, this->size_y / 2);
-	  sf::Vector2f new_pos = sf::Vector2f(this->size_x * int(p.x / this->size_x),
-					      this->size_y * int(p.y / this->size_y));
-	  this->setPosition(new_pos);
+	  Position(this);
 	}
     }
   else

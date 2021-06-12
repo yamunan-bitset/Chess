@@ -14,7 +14,9 @@ public:
 
   inline       sf::Sprite   getSprite () const { return this->sprite;              }
   inline const sf::Texture* getTexture() const { return this->sprite.getTexture(); }
-
+  inline                int getsize_x () const { return this->size_x;              }
+  inline                int getsize_y () const { return this->size_y;              }
+  
   bool delete_sprite = false;
   
 private:
