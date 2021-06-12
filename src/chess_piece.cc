@@ -43,9 +43,9 @@ void ChessPiece::move(bool& moving_piece)
 	  this->moving = false;
 	  moving_piece = false;
 	  sf::Vector2f p = this->getPosition()
-	    + sf::Vector2f(this->size / 2, this->size / 2);
-	  sf::Vector2f new_pos = sf::Vector2f(this->size * int(p.x / this->size),
-					      this->size * int(p.y / this->size));
+	    + sf::Vector2f(this->size_x / 2, this->size_y / 2);
+	  sf::Vector2f new_pos = sf::Vector2f(this->size_x * int(p.x / this->size_x),
+					      this->size_y * int(p.y / this->size_y));
 	  this->setPosition(new_pos);
 	}
     }

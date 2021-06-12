@@ -22,7 +22,7 @@ private:
   sf::Texture texture;
   sf::Sprite sprite;
   bool moving;
-  int size = 100;
+  int size_x = 125, size_y = 125;
 };
 
 #endif
