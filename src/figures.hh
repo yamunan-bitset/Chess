@@ -15,15 +15,15 @@ std::string w_bishop = "Assets/w_bishop.png";
 
 // 8 Pawns, 1 King, 1 Queen, 2 Rooks, 2 Knights, 2 Bishops
 std::array<std::string, 16> b_sprites =
-	{ 	b_rook, b_knight, b_bishop, b_queen, b_king,
-		b_bishop, b_knight, b_rook, b_pawn, b_pawn,
-		b_pawn, b_pawn, b_pawn, b_pawn, b_pawn, b_pawn
-	};
+  { 	b_rook, b_knight, b_bishop, b_queen, b_king,
+	b_bishop, b_knight, b_rook, b_pawn, b_pawn,
+	b_pawn, b_pawn, b_pawn, b_pawn, b_pawn, b_pawn
+  };
 std::array<std::string, 16> w_sprites =
-	{ 	w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, 
-		w_pawn, w_pawn, w_rook, w_knight, w_bishop, 
-		w_queen, w_king, w_bishop, w_knight, w_rook
-	};
+  { 	w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, w_pawn, 
+	w_pawn, w_pawn, w_rook, w_knight, w_bishop, 
+	w_queen, w_king, w_bishop, w_knight, w_rook
+  };
 
 std::vector<ChessPiece> pieces;
 
