@@ -2,6 +2,7 @@
 #define __CHESS__PIECE__HH__
 
 #include <Graphics.hpp>
+#include <string>
 
 class ChessPiece : public sf::Drawable, public sf::Transformable
 {
@@ -16,11 +17,14 @@ public:
   inline const sf::Texture* getTexture() const { return this->sprite.getTexture(); }
   inline                int getsize_x () const { return this->size_x;              }
   inline                int getsize_y () const { return this->size_y;              }
+  inline        std::string getPosNote() const { return this->pos_note;            }
   
   bool delete_sprite = false;
   
 private:
   sf::RenderWindow& window;
+  sf::Vector2f old_pos, new_pos;
+  std::string pos_note;
   sf::Texture texture;
   sf::Sprite sprite;
   bool moving;

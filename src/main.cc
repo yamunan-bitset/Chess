@@ -1,11 +1,12 @@
-#include <SFML/Graphics.hpp>
+#include <Graphics.hpp>
 #include <string>
 #include <array>
 #include <vector>
 
 #include "chess_piece.hh"  
 
-extern void Position(ChessPiece&);
+extern void Position(ChessPiece&); // position.cc
+extern void Move(ChessPiece);      // coordinate.cc
 
 int main(int argc, char** argv)
 {
@@ -49,7 +50,7 @@ int main(int argc, char** argv)
 						 (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
 	      Position(pieces[i]);
 	    }
-	  restart  = false;
+	  restart = false;
 	}
       while (window.pollEvent(event))
 	{
@@ -59,12 +60,14 @@ int main(int argc, char** argv)
 	    restart = true;
 	}
       for (unsigned int i = 0; i < pieces.size(); i++)
-	pieces[i].move(moving_piece);
-
-      window.clear();
-
-      window.draw(bg);
+	{
+	  pieces[i].move(moving_piece);
+	  Move(pieces[i]);
+	}
       
+      window.clear();
+      window.draw(bg);
+
       if (!restart)
 	for (unsigned int i = 0; i < pieces.size(); i++)
 	  {

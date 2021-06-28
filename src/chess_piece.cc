@@ -1,6 +1,8 @@
+#include <iostream>
 #include "chess_piece.hh"
 
-extern void Position(ChessPiece*);
+extern void Position(ChessPiece*);       // position.cc
+extern std::string ToNote(sf::Vector2f); // notation.cc
 
 ChessPiece::ChessPiece(sf::RenderWindow& windowRef, const std::string& file_name) : window(windowRef)
 {
@@ -45,6 +47,7 @@ void ChessPiece::move(bool& moving_piece)
 	  this->moving = false;
 	  moving_piece = false;
 	  Position(this);
+	  this->old_pos = this->getPosition();
 	}
     }
   else
@@ -58,6 +61,9 @@ void ChessPiece::move(bool& moving_piece)
 	{ // Left Button Pressed
 	  this->moving = true;
 	  moving_piece = true;
+	  this->pos_note = ToNote(this->old_pos) + ToNote(this->new_pos);
+	  std::cout << this->pos_note << std::endl;
+	  this->setPosition(this->new_pos);
 	}
       else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) &&
 	       mouse_pos.x > this->getPosition().x &&
