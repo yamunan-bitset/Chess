@@ -5,6 +5,8 @@
 #include <Audio.hpp>
 #include <string>
 
+#include "turn.hh"
+
 class ChessPiece : public sf::Drawable, public sf::Transformable
 {
 public:
@@ -22,12 +24,12 @@ public:
   inline                int getsize_y () const { return this->size_y;              }
   inline        std::string getPosNote() const { return this->pos_note;            }
   
-  bool delete_sprite = false, _play_sound = false, // This variable makes sure that the sound gets
-                                                   // played after the piece has been placed
-    play_sound = false, sound_played = false;
+  bool delete_sprite = false, play_sound = false, sound_played = false, just_played = false;
   
   sf::SoundBuffer move_sfx;
   
+  Turn turn;
+ 
 private:
   sf::RenderWindow& window;
   sf::Vector2f old_pos, new_pos;

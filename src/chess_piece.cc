@@ -11,6 +11,7 @@ ChessPiece::ChessPiece(sf::RenderWindow& windowRef, const std::string& file_name
   this->moving = false;
   this->sprite.setScale(128 / this->sprite.getGlobalBounds().width,
 			128 / this->sprite.getGlobalBounds().height);
+  this->turn.turn_number = 1;
 }
 
 ChessPiece::ChessPiece(ChessPiece&& rval) : window(rval.window)
@@ -19,6 +20,7 @@ ChessPiece::ChessPiece(ChessPiece&& rval) : window(rval.window)
   this->sprite.setTexture(this->texture);
   this->sprite.setScale(rval.sprite.getScale());
   this->moving = std::move(rval.moving);
+  this->turn.turn_number = 1;
 }
 
 ChessPiece::ChessPiece(const ChessPiece& lval): window(lval.window)
@@ -27,6 +29,7 @@ ChessPiece::ChessPiece(const ChessPiece& lval): window(lval.window)
   this->sprite.setTexture(this->texture);
   this->sprite.setScale(lval.sprite.getScale());
   this->moving = lval.moving;
+  this->turn.turn_number = 1;
 }
 
 ChessPiece::~ChessPiece()
@@ -52,8 +55,13 @@ void ChessPiece::move(bool& moving_piece)
 	  moving_piece     = false;
 	  Position(this);
 	  this->old_pos = this->getPosition();
-	  if (this->_play_sound) this->play_sound = true;
-	  else this->_play_sound = false;
+	  if (this->just_played)
+	    {
+	      this->play_sound = true;
+	      this->turn.turn_number++;
+	      std::cout << this->turn.turn << std::endl;
+	    }
+	  else this->just_played = false;
 	}
     }
   else
@@ -70,7 +78,7 @@ void ChessPiece::move(bool& moving_piece)
 	  this->pos_note = ToNote(this->old_pos, this) + ToNote(this->new_pos, this);
 	  std::cout << this->pos_note << std::endl;
 	  this->setPosition(this->new_pos);
-	  this->_play_sound = true;
+	  this->just_played = true;
 	}
       else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) &&
 	       mouse_pos.x > this->getPosition().x &&

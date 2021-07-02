@@ -5,12 +5,17 @@
 #include <vector>
 
 #include "chess_piece.hh"
+#include "turn.hh"
 
 extern void Position(ChessPiece&);  // position.cc
 extern void Move(ChessPiece);       // coordinate.cc
 
+#include <iostream>
+
 int main(int argc, char** argv)
 {
+  Turn turn;
+  turn.turn_number = 1;
   sf::RenderWindow window(sf::VideoMode(1000, 1000),"Chess");
 
   sf::SoundBuffer start; // This is the starting sound
@@ -49,6 +54,7 @@ int main(int argc, char** argv)
     {
       if (restart)
 	{
+	  turn.turn_number = 1;
 	  sound.setBuffer(start);
 	  sound.play();
 	  pieces.clear();
@@ -86,6 +92,9 @@ int main(int argc, char** argv)
 	    }
 	  else continue;
 	}
+
+      if (turn == "white") std::cout << "white" << std::endl;
+      else if (turn == "black") std::cout << "black" << std::endl;
       
       window.clear();
       window.draw(bg);
