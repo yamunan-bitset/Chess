@@ -1,19 +1,29 @@
 #include <Graphics.hpp>
+#include <Audio.hpp>
 #include <string>
 #include <array>
 #include <vector>
 
-#include "chess_piece.hh"  
+#include "chess_piece.hh"
 
-extern void Position(ChessPiece&); // position.cc
-extern void Move(ChessPiece);      // coordinate.cc
+extern void Position(ChessPiece&);  // position.cc
+extern void Move(ChessPiece);       // coordinate.cc
 
 int main(int argc, char** argv)
 {
   sf::RenderWindow window(sf::VideoMode(1000, 1000),"Chess");
 
+  sf::SoundBuffer start; // This is the starting sound
+  start.loadFromFile("data/sfx/start.wav");
+  sf::SoundBuffer move_sfx;
+  move_sfx.loadFromFile("data/sfx/move.wav");
+
+  sf::Sound sound;
+  sound.setBuffer(start);
+  sound.play();
+  
   sf::Texture bg_t;
-  bg_t.loadFromFile("Assets/board.png");
+  bg_t.loadFromFile("data/assets/board.png");
   sf::Sprite bg(bg_t);
   bg.setScale(1.25f, 1.25f); // Since the board image is a 800x800
                              // scaling it by 1.25, 1.25 it will
@@ -25,10 +35,13 @@ int main(int argc, char** argv)
     {
       pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
       pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
- 				        (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
+					 (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
       Position(pieces[i]);
     }
 
+  sound.setBuffer(pieces[0].move_sfx);
+  sound.play();
+  
   bool restart      = false;
   bool moving_piece = false;
   sf::Event event;
@@ -36,6 +49,8 @@ int main(int argc, char** argv)
     {
       if (restart)
 	{
+	  sound.setBuffer(start);
+	  sound.play();
 	  pieces.clear();
 
 	  for (unsigned int i = 0; i < b_sprites.size(); i++)
@@ -63,6 +78,13 @@ int main(int argc, char** argv)
 	{
 	  pieces[i].move(moving_piece);
 	  Move(pieces[i]);
+	  if (pieces[i].play_sound && !pieces[i].sound_played)
+	    {
+	      sound.setBuffer(move_sfx);
+	      sound.play();
+	      pieces[i].sound_played = true;
+	    }
+	  else continue;
 	}
       
       window.clear();

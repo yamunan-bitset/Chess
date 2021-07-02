@@ -1,17 +1,17 @@
 // Loading File for Textures Black
-std::string b_pawn   = "Assets/b_pawn.png";
-std::string b_king   = "Assets/b_king.png";
-std::string b_queen  = "Assets/b_queen.png";
-std::string b_rook   = "Assets/b_rook.png";
-std::string b_knight = "Assets/b_knight.png";
-std::string b_bishop = "Assets/b_bishop.png";
+std::string b_pawn   = "data/assets/b_pawn.png";
+std::string b_king   = "data/assets/b_king.png";
+std::string b_queen  = "data/assets/b_queen.png";
+std::string b_rook   = "data/assets/b_rook.png";
+std::string b_knight = "data/assets/b_knight.png";
+std::string b_bishop = "data/assets/b_bishop.png";
 // Loading File for Textures White  
-std::string w_pawn   = "Assets/w_pawn.png";
-std::string w_king   = "Assets/w_king.png";
-std::string w_queen  = "Assets/w_queen.png";
-std::string w_rook   = "Assets/w_rook.png";
-std::string w_knight = "Assets/w_knight.png";
-std::string w_bishop = "Assets/w_bishop.png";
+std::string w_pawn   = "data/assets/w_pawn.png";
+std::string w_king   = "data/assets/w_king.png";
+std::string w_queen  = "data/assets/w_queen.png";
+std::string w_rook   = "data/assets/w_rook.png";
+std::string w_knight = "data/assets/w_knight.png";
+std::string w_bishop = "data/assets/w_bishop.png";
 
 // 8 Pawns, 1 King, 1 Queen, 2 Rooks, 2 Knights, 2 Bishops
 std::array<std::string, 16> b_sprites =

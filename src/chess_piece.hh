@@ -2,14 +2,17 @@
 #define __CHESS__PIECE__HH__
 
 #include <Graphics.hpp>
+#include <Audio.hpp>
 #include <string>
 
 class ChessPiece : public sf::Drawable, public sf::Transformable
 {
 public:
-  ChessPiece(sf::RenderWindow&, const std::string&);
-  ChessPiece(ChessPiece&&);
-  ChessPiece(const ChessPiece&);
+  ChessPiece (sf::RenderWindow&, const std::string&);
+  ChessPiece (ChessPiece&&);
+  ChessPiece (const ChessPiece&);
+  ~ChessPiece();
+  
   void draw(sf::RenderTarget&, sf::RenderStates) const;
   void move(bool&);
 
@@ -19,7 +22,11 @@ public:
   inline                int getsize_y () const { return this->size_y;              }
   inline        std::string getPosNote() const { return this->pos_note;            }
   
-  bool delete_sprite = false;
+  bool delete_sprite = false, _play_sound = false, // This variable makes sure that the sound gets
+                                                   // played after the piece has been placed
+    play_sound = false, sound_played = false;
+  
+  sf::SoundBuffer move_sfx;
   
 private:
   sf::RenderWindow& window;

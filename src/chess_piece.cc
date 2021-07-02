@@ -29,6 +29,10 @@ ChessPiece::ChessPiece(const ChessPiece& lval): window(lval.window)
   this->moving = lval.moving;
 }
 
+ChessPiece::~ChessPiece()
+{
+}
+
 void ChessPiece::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
   states.transform *= this->getTransform();
@@ -44,10 +48,12 @@ void ChessPiece::move(bool& moving_piece)
 			mouse_pos.y - this->sprite.getGlobalBounds().height / 2);
       if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{ // Left Button Released
-	  this->moving = false;
-	  moving_piece = false;
+	  this->moving     = false;
+	  moving_piece     = false;
 	  Position(this);
 	  this->old_pos = this->getPosition();
+	  if (this->_play_sound) this->play_sound = true;
+	  else this->_play_sound = false;
 	}
     }
   else
@@ -59,11 +65,12 @@ void ChessPiece::move(bool& moving_piece)
 	  mouse_pos.y < this->getPosition().y + this->sprite.getGlobalBounds().height &&
 	  !moving_piece)
 	{ // Left Button Pressed
-	  this->moving = true;
-	  moving_piece = true;
+	  this->moving     = true;
+	  moving_piece     = true;
 	  this->pos_note = ToNote(this->old_pos, this) + ToNote(this->new_pos, this);
 	  std::cout << this->pos_note << std::endl;
 	  this->setPosition(this->new_pos);
+	  this->_play_sound = true;
 	}
       else if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) &&
 	       mouse_pos.x > this->getPosition().x &&
