@@ -22,7 +22,9 @@ int main(int argc, char** argv)
   start.loadFromFile("data/sfx/start.wav");
   sf::SoundBuffer move_sfx;
   move_sfx.loadFromFile("data/sfx/move.wav");
-
+  sf::SoundBuffer capture_sfx;
+  capture_sfx.loadFromFile("data/sfx/capture.wav");
+  
   sf::Sound sound;
   sound.setBuffer(start);
   sound.play();
@@ -102,7 +104,13 @@ int main(int argc, char** argv)
       if (!restart)
 	for (unsigned int i = 0; i < pieces.size(); i++)
 	  {
-	    if (!pieces[i].delete_sprite)
+	    if (pieces[i].delete_sprite && !pieces[i].capture_played)
+	      {
+		sound.setBuffer(capture_sfx);
+		sound.play();
+		pieces[i].capture_played = true;
+	      }
+	    else if (!pieces[i].delete_sprite)
 	      window.draw(pieces[i]);
 	  }
 
