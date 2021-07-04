@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "chess_piece.hh"
+#include "board.hh"
 #include "turn.hh"
 
 extern void Position(ChessPiece&);  // position.cc
@@ -29,20 +30,15 @@ int main(int argc, char** argv)
   sound.setBuffer(start);
   sound.play();
   
-  sf::Texture bg_t;
-  bg_t.loadFromFile("data/assets/board.png");
-  sf::Sprite bg(bg_t);
-  bg.setScale(1.25f, 1.25f); // Since the board image is a 800x800
-                             // scaling it by 1.25, 1.25 it will
-                             // convert it into 1000x1000
-
+  Board bg;
+  
 #include "figures.hh"
 
-  for (int i = 0; i < pieces.size(); i++)
+  for (unsigned int i = 0; i < pieces.size(); i++)
     {
       pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
-      pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
-					 (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
+      pieces[i].setPosition(sf::Vector2f(125 * (i % 8), 
+					 (i < 8 ? 0 : (i < 16 ? 100 : (i < 24 ? 750 : 850)))));
       Position(pieces[i]);
     }
 
