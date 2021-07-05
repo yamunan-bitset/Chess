@@ -14,5 +14,5 @@ private:
 
   int size_x = 125, size_y = 125;
 
-  sf::CircleShape* squares[64];
+  sf::RectangleShape* squares[64];
 };

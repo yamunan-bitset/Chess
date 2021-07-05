@@ -1,4 +1,4 @@
 fix notation
 fix capture
 fix turn
-fix board
+find way to render sf::RectangleShape*
