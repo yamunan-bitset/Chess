@@ -60,6 +60,7 @@ void ChessPiece::move(bool& moving_piece)
 	      this->play_sound = true;
 	      this->turn.turn_number++;
 	      std::cout << this->turn.turn << std::endl;
+	      this->just_played = false;
 	    }
 	  else this->just_played = false;
 	}

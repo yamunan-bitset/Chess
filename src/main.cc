@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "chess_piece.hh"
-#include "board.hh"
 #include "turn.hh"
 
 extern void Position(ChessPiece&);  // position.cc
@@ -19,31 +18,32 @@ int main(int argc, char** argv)
   turn.turn_number = 1;
   sf::RenderWindow window(sf::VideoMode(1000, 1000),"Chess");
 
-  sf::SoundBuffer start; // This is the starting sound
-  start.loadFromFile("data/sfx/start.wav");
+  sf::SoundBuffer start_sfx;
+  start_sfx.loadFromFile("data/sfx/start.wav");
   sf::SoundBuffer move_sfx;
   move_sfx.loadFromFile("data/sfx/move.wav");
-  sf::SoundBuffer capture_sfx;
-  capture_sfx.loadFromFile("data/sfx/capture.wav");
-  
+
   sf::Sound sound;
-  sound.setBuffer(start);
+  sound.setBuffer(start_sfx);
   sound.play();
   
-  Board bg;
-  
+  sf::Texture bg_t;
+  bg_t.loadFromFile("data/assets/board.png");
+  sf::Sprite bg(bg_t);
+  bg.setScale(1.25f, 1.25f); // Since the board image is a 800x800
+                             // scaling it by 1.25, 1.25 it will
+                             // convert it into 1000x1000
+
 #include "figures.hh"
 
-  for (unsigned int i = 0; i < pieces.size(); i++)
+  for (int i = 0; i < pieces.size(); i++)
     {
       pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
-      pieces[i].setPosition(sf::Vector2f(125 * (i % 8), 
-					 (i < 8 ? 0 : (i < 16 ? 100 : (i < 24 ? 750 : 850)))));
+      pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
+					 (i < 8 ? 0:(i < 16 ? 100:(i < 24 ? 750:850)))));
       Position(pieces[i]);
     }
 
-  sound.setBuffer(pieces[0].move_sfx);
-  sound.play();
   
   bool restart      = false;
   bool moving_piece = false;
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
       if (restart)
 	{
 	  turn.turn_number = 1;
-	  sound.setBuffer(start);
+	  sound.setBuffer(start_sfx);
 	  sound.play();
 	  pieces.clear();
 
@@ -62,7 +62,7 @@ int main(int argc, char** argv)
 	  for (unsigned int i = 0; i < w_sprites.size(); i++)
 	    pieces.push_back(ChessPiece(window, w_sprites[i]));
 
-	  for (int i = 0; i < pieces.size(); i++)
+	  for (unsigned int i = 0; i < pieces.size(); i++)
 	    {
 	      pieces[i].setScale(sf::Vector2f(1.0f, 1.0f));
 	      pieces[i].setPosition(sf::Vector2f(125*(i % 8), 
@@ -100,14 +100,12 @@ int main(int argc, char** argv)
       if (!restart)
 	for (unsigned int i = 0; i < pieces.size(); i++)
 	  {
-	    if (pieces[i].delete_sprite && !pieces[i].capture_played)
+	    if (pieces[i].delete_sprite)
 	      {
-		sound.setBuffer(capture_sfx);
+		sound.setBuffer(pieces[0].move_sfx);
 		sound.play();
-		pieces[i].capture_played = true;
 	      }
-	    else if (!pieces[i].delete_sprite)
-	      window.draw(pieces[i]);
+	    else { window.draw(pieces[i]); turn.turn_number += 1;}
 	  }
 
       window.display();

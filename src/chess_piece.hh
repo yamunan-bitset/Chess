@@ -24,8 +24,7 @@ public:
   inline                int getsize_y () const { return this->size_y;              }
   inline        std::string getPosNote() const { return this->pos_note;            }
   
-  bool delete_sprite = false, play_sound = false, sound_played = false,
-    just_played = false, capture_played = false;
+  bool delete_sprite = false, play_sound = false, sound_played = false, just_played = false;
   
   sf::SoundBuffer move_sfx;
   
