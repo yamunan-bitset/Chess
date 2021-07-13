@@ -7,8 +7,9 @@
 #include "chess_piece.hh"
 #include "turn.hh"
 
-extern void Position(ChessPiece&);  // position.cc
-extern void Move(ChessPiece);       // coordinate.cc
+extern void Position(ChessPiece&);            // position.cc
+extern void Move(ChessPiece);                 // coordinate.cc
+extern void Capture(std::vector<ChessPiece>); // capture.cc
 
 #include <iostream>
 
@@ -97,17 +98,20 @@ int main(int argc, char** argv)
       window.clear();
       window.draw(bg);
 
-      if (!restart)
-	for (unsigned int i = 0; i < pieces.size(); i++)
-	  {
-	    if (pieces[i].delete_sprite)
-	      {
-		sound.setBuffer(pieces[0].move_sfx);
-		sound.play();
-	      }
-	    else { window.draw(pieces[i]); turn.turn_number += 1;}
-	  }
+      Capture(pieces);
 
+      if (!restart)
+	{
+	  for (unsigned int i = 0; i < pieces.size(); i++)
+	    {
+	      if (pieces[i].delete_sprite)
+		{
+		  sound.setBuffer(pieces[0].move_sfx);
+		  sound.play();
+		}
+	      else { window.draw(pieces[i]); turn.turn_number += 1;}
+	    }
+	}
       window.display();
     }
 }
