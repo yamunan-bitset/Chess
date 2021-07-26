@@ -6,6 +6,7 @@
 
 #include "chess_piece.hh"
 #include "turn.hh"
+#include "board.hh"
 
 extern void Position(ChessPiece&);            // position.cc
 extern void Move(ChessPiece);                 // coordinate.cc
@@ -28,12 +29,7 @@ int main(int argc, char** argv)
   sound.setBuffer(start_sfx);
   sound.play();
   
-  sf::Texture bg_t;
-  bg_t.loadFromFile("data/assets/board.png");
-  sf::Sprite bg(bg_t);
-  bg.setScale(1.25f, 1.25f); // Since the board image is a 800x800
-                             // scaling it by 1.25, 1.25 it will
-                             // convert it into 1000x1000
+  Board board;
 
 #include "figures.hh"
 
@@ -96,7 +92,7 @@ int main(int argc, char** argv)
       else if (turn == "black") std::cout << "black" << std::endl;
       
       window.clear();
-      window.draw(bg);
+      window.draw(board);
 
       Capture(pieces);
 
